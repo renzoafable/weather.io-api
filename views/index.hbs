@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather</title>
+    <title>weather.io</title>
 
     {{!-- ICONS --}}
     <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
@@ -18,27 +18,28 @@
     {{>header}}
     <div class="main-content">
       <div class="container">
+        <div class="input-group input-group-lg bg-white shadow rounded mt-3 mb-4 p-1 w-50 mx-auto">
+          <div class="input-group-prepend bg-transparent">
+            <button class="btn bg-transparent border-0">
+              <i class="icon ion-md-search"></i>
+            </button>
+          </div>
+          <input
+            class="form-control form-control border-0 bg-transparent"
+            id="locationInput"
+            placeholder="Enter city or town, etc."
+            type="text"
+          >
+        </div>
         <div class="row shadow rounded bg-main-light">
-          <div class="col-md-8 rounded-left p-4">
-            <div class="input-group input-group border bg-white rounded mt-3">
-              <div class="input-group-prepend bg-transparent">
-                <button class="btn bg-transparent border-0">
-                  <i class="icon ion-md-search"></i>
-                </button>
-              </div>
-              <input
-                class="form-control form-control border-0 bg-transparent"
-                id="locationInput"
-                placeholder="Enter region, city, town, etc."
-                type="text"
-              >
-            </div>
-
-            <p class="h2 font-weight-bolder my-4 secondary-text">Weather</p>
-            <p class="h6 font-weight-bold secondary-text">5-day Forecast</p>
+          <div class="col-12 col-md-8 rounded-left p-4">
+            <p class="h2 font-weight-bolder my-4 secondary-text text-center">Weather Forecast <small class="text-muted">(next 5 days)</small></p>
             <div class="table-responsive text-center">
               <table class="table table-borderless">
-                <thead class="secondary-text">
+                <div id="empty-table">
+                  <p class="text-muted m-4">Select a location...</p>
+                </div>
+                <thead class="secondary-text d-none">
                   <tr>
                     <th scope="col">Day</th>
                     <th scope="col">Rain</th>
@@ -47,14 +48,33 @@
                     <th scope="col">Wind Speed</th>
                   </tr>
                 </thead>
-                <tbody id="table-body"></tbody>
+                <tbody class="d-none">
+                  <tr>
+                    <th scope="row" colspan="5" class="p-0">
+                      <p class="text-muted">Select a location...</p>
+                    </th>
+                  </tr>
+                </tbody>
               </table>
             </div>
-            <p id="message-one">None</p>
-            <p id="message-two">None</p>
           </div>
-          <div class="col-md-4 rounded-right bg-main-dark">
-
+          <div class="col-12 col-md-4 rounded-right bg-main-dark p-4">
+            <div class="d-flex flex-column align-items-center justify-content-center mt-5">
+              <div class="d-flex flex-row">
+                <img class="weather-icon" src="http://openweathermap.org/img/wn/09d@2x.png" style="width: 75px; height: 75px">
+                <div class="d-flex flex-column align-items-center justify-content-center">
+                  <p class="h3 text-light m-0">Today</p>
+                  <p class="text-muted">Sat, 3 Aug</p>
+                </div>
+              </div>
+              <p class="text-white big-temp m-0">28<span>&#8451;</span></p>
+              <p class="text-muted mb-2">Berlin, Germany</p>
+              <div class="d-flex flex-row text-muted">
+                <span>Feels like 32</span>
+                <span class="mx-2">|</span>
+                <span>Sunset 20:15</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
