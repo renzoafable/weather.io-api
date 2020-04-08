@@ -19,7 +19,7 @@
     <div class="main-content">
       <div class="container">
         <div class="row shadow rounded bg-main-light">
-          <div class="col-md-8 rounded-left rounded-lg p-4">
+          <div class="col-md-8 rounded-left p-4">
             <div class="input-group input-group border bg-white rounded mt-3">
               <div class="input-group-prepend bg-transparent">
                 <button class="btn bg-transparent border-0">
@@ -34,11 +34,26 @@
               >
             </div>
 
-            <h2 class="title my-4">Weather <strong>Forecast</strong></h2>
+            <p class="h2 font-weight-bolder my-4 secondary-text">Weather</p>
+            <p class="h6 font-weight-bold secondary-text">5-day Forecast</p>
+            <div class="table-responsive text-center">
+              <table class="table table-borderless">
+                <thead class="secondary-text">
+                  <tr>
+                    <th scope="col">Day</th>
+                    <th scope="col">Rain</th>
+                    <th scope="col">Weather</th>
+                    <th scope="col">Max Temp</th>
+                    <th scope="col">Wind Speed</th>
+                  </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+              </table>
+            </div>
             <p id="message-one">None</p>
             <p id="message-two">None</p>
           </div>
-          <div class="col-md-4 rounded-right rounded-lg bg-main-dark">
+          <div class="col-md-4 rounded-right bg-main-dark">
 
           </div>
         </div>
