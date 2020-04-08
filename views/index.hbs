@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+
+    {{!-- ICONS --}}
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="icon" href="/img/weather.png" type="image/x-icon">
+
+    {{!-- STYLESHEETS --}}
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    {{>header}}
+    <div class="main-content">
+      <div class="container">
+        <div class="input-group input-group-lg shadow rounded-lg w-50 mx-auto mb-3 p-2">
+          <input
+            aria-describedby="locationHelp"
+            class="form-control form-control-lg border-0"
+            id="locationInput"
+            placeholder="Enter location"
+            type="text"
+          >
+          <div class="input-group-append bg-transparent">
+            <button class="btn bg-transparent border-0">
+              <i class="icon ion-ios-search"></i>
+            </button>
+          </div>
+        </div>
+        <small id="locationHelp" class="form-text text-muted text-center">
+          e.g. Country, City, Town, etc.
+        </small>
+
+        <p id="message-one"></p>
+        <p id="message-two"></p>
+      </div>
+    </div>
+    {{>footer}}
+
+    {{!-- SCRIPTS --}}
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZOinOHrWjATGbzAQb9m1Z90n_PZ_Tc84&libraries=places"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/app.js"></script>
+  </body>
+</html>

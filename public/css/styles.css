@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css?family=Karla|Montserrat&display=swap');
+
+:root {
+  --card-bg-color: #f2fbff;
+  --main-text-color: #202b5c;
+  --nav-color: #100e3b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  color: var(--main-text-color);
+  font-family: 'Karla', Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  font-family: inherit;
+  min-height: 100vh;
+  padding-top: 90px;
+}
+
+.main-content {
+  flex-grow: 1;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* NAV BAR */
+
+nav h1,
+nav a {
+  color: var(--main-text-color);
+}
+
+nav h1 {
+  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+  text-transform: lowercase;
+}
+
+/* INDEX PAGE */
+/* Location form */
+.form-control:focus {
+  box-shadow: none;
+  outline: 0 none;
+}
+
+button {
+  cursor: pointer;
+}
+
+.pac-container {
+  margin-top: 1rem;
+}
+
+.portrait {
+  height: auto;
+  max-width: 250px;
+}
+
+footer {
+  border-top: 1px solid #eeeeee;
+  color: #888888;
+  margin-top: 16px;
+  padding: 16px 0;
+}
