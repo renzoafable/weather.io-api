@@ -1,5 +1,6 @@
 const geocode = require('../utils/geocode');
 const forecast = require('../utils/forecast');
+const currentWeather = require('../utils/currentWeather');
 
 module.exports = {
   getWeatherData(req, res) {
@@ -11,21 +12,35 @@ module.exports = {
       });
     }
 
-    geocode(address, (error, { lon, lat, location: geoLocation } = {}) => {
-      if (error) {
-        return res.send({ error });
-      }
-      forecast(lon, lat, (error, forecastData) => {
+    geocode(
+      address,
+      (error, { longitude, latitude, location: geoLocation } = {}) => {
         if (error) {
           return res.send({ error });
         }
 
-        res.send({
-          forecast: forecastData.message,
-          location: geoLocation,
-          data: forecastData.data,
+        currentWeather(longitude, latitude, (error, currentWeatherData) => {
+          if (error) {
+            return res.send({ error });
+          }
+
+          const { data: weatherData } = currentWeatherData;
+          const { coord } = weatherData;
+
+          forecast(coord.lon, coord.lat, (error, forecastData) => {
+            if (error) {
+              return res.send({ error });
+            }
+
+            res.send({
+              forecast: forecastData.message,
+              location: geoLocation,
+              forecastData: forecastData.data,
+              currentWeatherData: weatherData,
+            });
+          });
         });
-      });
-    });
+      }
+    );
   },
 };

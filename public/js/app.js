@@ -5,18 +5,6 @@ const search = document.querySelector('input');
 const messageOne = document.querySelector('#message-one');
 const messageTwo = document.querySelector('#message-two');
 
-const urlBuilder = ({
-  geometry = null,
-  formatted_address = null,
-  name = null,
-}) => {
-  if (geometry) {
-    return `http://localhost:3000/forecast?lon=${geometry.location.lng()}&lat=${geometry.location.lat()}&address=${formatted_address}`;
-  } else {
-    return `http://localhost:3000/weather?address=${name}`;
-  }
-};
-
 const locationInput = document.getElementById('locationInput');
 const autoComplete = new google.maps.places.Autocomplete(locationInput, {
   types: ['(regions)'],
@@ -32,9 +20,15 @@ const autoComplete = new google.maps.places.Autocomplete(locationInput, {
  */
 google.maps.event.addListener(autoComplete, 'place_changed', () => {
   const suggestion = autoComplete.getPlace();
-  fetch(urlBuilder(suggestion)).then((response) => {
+  const url = `http://localhost:3000/weather?address=${suggestion.name}`;
+
+  messageOne.textContent = 'Loading..';
+  messageTwo.textContent = 'Loading..';
+
+  fetch(url).then((response) => {
     response.json().then((data) => {
       const { error, location, forecast } = data;
+
       if (error) {
         messageOne.textContent = `Error! ${error}`;
         messageTwo.textContent = '';

@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css?family=Karla|Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Karla|Quicksand&display=swap');
 
 :root {
-  --card-bg-color: #f2fbff;
-  --main-text-color: #202b5c;
-  --nav-color: #100e3b;
+  --main-light-color: #f2fbff;
+  --main-dark-color: #100e3b;
+  --secondary-dark-color: #484580;
 }
 
 * {
@@ -13,16 +13,19 @@
 }
 
 html {
-  color: var(--main-text-color);
-  font-family: 'Karla', Arial, Helvetica, sans-serif;
+  background-color: #fff;
+  color: #fff;
+  font-family: 'Quicksand', Arial, Helvetica, sans-serif;
   font-size: 16px;
 }
+
 body {
+  background-color: inherit;
   display: flex;
   flex-direction: column;
   font-family: inherit;
   min-height: 100vh;
-  padding-top: 90px;
+  padding-top: 5rem;
 }
 
 .main-content {
@@ -37,11 +40,11 @@ h1 {
 
 nav h1,
 nav a {
-  color: var(--main-text-color);
+  color: var(--main-dark-color);
 }
 
 nav h1 {
-  font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+  font-family: 'Karla', Arial, Helvetica, sans-serif;
   font-size: 1.5rem;
   text-transform: lowercase;
 }
@@ -59,6 +62,18 @@ button {
 
 .pac-container {
   margin-top: 1rem;
+}
+
+.bg-main-dark {
+  background-color: var(--main-dark-color);
+}
+
+.bg-main-light {
+  background-color: var(--main-light-color);
+}
+
+.title {
+  color: var(--secondary-dark-color);
 }
 
 .portrait {
