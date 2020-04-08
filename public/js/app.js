@@ -2,10 +2,11 @@ console.log('Client side js file is loaded!');
 
 const messageOne = document.querySelector('#message-one');
 const messageTwo = document.querySelector('#message-two');
-const forecastBody = document.getElementById('table-body');
+const forecastBody = document.querySelector('tbody');
+const tablePlaceholder = document.getElementById('empty-table');
 const locationInput = document.getElementById('locationInput');
 const autoComplete = new google.maps.places.Autocomplete(locationInput, {
-  types: ['(regions)'],
+  types: ['(cities)'],
 });
 
 const DAYS = [
@@ -24,10 +25,23 @@ const removeChildrenElements = (domElement) => {
   }
 };
 
+const addClassToElement = (element, cssClass) => {
+  let classArr = element.className.split(' ');
+  if (!classArr.includes(cssClass)) {
+    element.className += ` ${cssClass}`;
+  }
+};
+
+const removeClassFromElement = (element, cssClass) => {
+  element.className = element.className.replace(cssClass, '');
+};
+
 const displayForecastData = ({ forecastData }) => {
-  removeChildrenElements(forecastBody);
+  removeChildrenElements(tablePlaceholder);
+  addClassToElement(tablePlaceholder, 'd-none');
   const { cod, message, cnt, list, city } = forecastData;
   const step = Math.floor(cnt / 5);
+  const tempThreshold = 27;
 
   for (let i = step - 1; i < cnt; i += step) {
     const forecast = { ...list[i] };
@@ -38,21 +52,23 @@ const displayForecastData = ({ forecastData }) => {
         <th class="align-middle" scope="row">${
           DAYS[forecast['date'].getDay()]
         }</th>
-        <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/09n@2x.png">${
-          forecast.rain ? forecast.rain['3h'] : 0
-        } mm<sup>3</sup></td>
+        <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/09${
+          forecast.sys.pod
+        }@2x.png">${forecast.rain ? forecast.rain['3h'] : 0} mm<sup>3</sup></td>
         <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/${
           forecast.weather[0].icon
         }@2x.png"></td>
-        <td class="align-middle">${(forecast.main.temp_min - 273.15).toFixed(
-          2
-        )} &#8451;</td>
+        <td class="align-middle ${
+          forecast.main.temp_max - 273.15 > tempThreshold ? 'text-danger' : ''
+        }">${(forecast.main.temp_max - 273.15).toFixed(2)} &#8451;</td>
         <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/50d@2x.png">${
           forecast.wind.speed
         } m/s</td>
     `;
     forecastBody.appendChild(forecastItem);
   }
+  removeClassFromElement(document.querySelector('thead'), 'd-none');
+  removeClassFromElement(document.querySelector('tbody'), 'd-none');
 };
 
 /**
@@ -67,31 +83,25 @@ google.maps.event.addListener(autoComplete, 'place_changed', () => {
   const suggestion = autoComplete.getPlace();
   const url = `http://localhost:3000/weather?address=${suggestion.name}`;
 
-  messageOne.textContent = 'Loading..';
-  messageTwo.textContent = 'Loading..';
   removeChildrenElements(forecastBody);
+  removeClassFromElement(tablePlaceholder, 'd-none');
+  addClassToElement(document.querySelector('thead'), 'd-none');
+  addClassToElement(document.querySelector('tbody'), 'd-none');
 
   // Create a loader inside the table
-  const spinner = document.createElement('tr');
-  spinner.innerHTML = `
-    <th scope="row" colspan="5">
-      <div class="spinner-border" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </th>
+  removeChildrenElements(tablePlaceholder);
+  tablePlaceholder.innerHTML = `
+    <div class='spinner-border text-warning mx-auto' role='status'>
+      <span class='sr-only'>Loading...</span>
+    </div>
   `;
-  forecastBody.appendChild(spinner);
 
   fetch(url).then((response) => {
     response.json().then((data) => {
       const { error, location, forecast } = data;
       console.log(data);
       if (error) {
-        messageOne.textContent = `Error! ${error}`;
-        messageTwo.textContent = '';
       } else {
-        messageOne.textContent = location;
-        messageTwo.textContent = forecast;
         displayForecastData(data);
       }
     });
