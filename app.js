@@ -25,15 +25,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 // serve bootstrap files so that it could be used by static files
 app.use(
   '/js',
-  express.static(path.join(__dirname, '../node_modules/bootstrap/dist/js'))
+  express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'))
 );
 app.use(
   '/js',
-  express.static(path.join(__dirname, '../node_modules/jquery/dist'))
+  express.static(path.join(__dirname, 'node_modules/jquery/dist'))
 );
 app.use(
   '/css',
-  express.static(path.join(__dirname, '../node_modules/bootstrap/dist/css'))
+  express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css'))
 );
 
 app.use('/', routes);
