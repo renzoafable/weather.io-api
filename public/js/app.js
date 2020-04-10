@@ -1,13 +1,18 @@
-console.log('Client side js file is loaded!');
-
-const messageOne = document.querySelector('#message-one');
-const messageTwo = document.querySelector('#message-two');
-const forecastBody = document.querySelector('tbody');
-const tablePlaceholder = document.getElementById('empty-table');
-const locationInput = document.getElementById('locationInput');
-const autoComplete = new google.maps.places.Autocomplete(locationInput, {
-  types: ['(cities)'],
-});
+const domElements = {
+  forecastBody: document.querySelector('tbody'),
+  tablePlaceholder: document.getElementById('empty-table'),
+  tableHead: document.querySelector('thead'),
+  currentWeatherIcon: document.querySelector('.current-weather-icon'),
+  currentDate: document.querySelector('.current-date'),
+  currentTemp: document.querySelector('.current-temp'),
+  currentLocation: document.querySelector('.current-location'),
+  currentFeelsLike: document.querySelector('.current-feels-like'),
+  currentSunset: document.querySelector('.current-sunset'),
+  currentClouds: document.querySelector('.current-clouds'),
+  currentRain: document.querySelector('.current-rain'),
+  currentHumidity: document.querySelector('.current-humidity'),
+  currentWind: document.querySelector('.current-wind'),
+};
 
 const DAYS = [
   'Sunday',
@@ -18,6 +23,32 @@ const DAYS = [
   'Friday',
   'Saturday',
 ];
+
+const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'June',
+  'July',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
+
+// Load date
+const currentDate = new Date();
+domElements.currentDate.innerHTML = `${
+  DAYS[currentDate.getDay()]
+}, ${currentDate.getDate()} ${MONTHS[currentDate.getMonth()]}`;
+
+const locationInput = document.getElementById('locationInput');
+const autoComplete = new google.maps.places.Autocomplete(locationInput, {
+  types: ['(regions)'],
+});
 
 const removeChildrenElements = (domElement) => {
   while (domElement.firstChild) {
@@ -36,9 +67,21 @@ const removeClassFromElement = (element, cssClass) => {
   element.className = element.className.replace(cssClass, '');
 };
 
+const kelvinToCelsius = (kelvin) => {
+  return kelvin - 273.15;
+};
+
+const unixDateToTime = (unixDate) => {
+  return new Date(unixDate * 1000);
+};
+
+const metricToImperialSpeed = (speed) => {
+  return speed * 3.6;
+};
+
 const displayForecastData = ({ forecastData }) => {
-  removeChildrenElements(tablePlaceholder);
-  addClassToElement(tablePlaceholder, 'd-none');
+  removeChildrenElements(domElements.tablePlaceholder);
+  addClassToElement(domElements.tablePlaceholder, 'd-none');
   const { cod, message, cnt, list, city } = forecastData;
   const step = Math.floor(cnt / 5);
   const tempThreshold = 27;
@@ -59,16 +102,59 @@ const displayForecastData = ({ forecastData }) => {
           forecast.weather[0].icon
         }@2x.png"></td>
         <td class="align-middle ${
-          forecast.main.temp_max - 273.15 > tempThreshold ? 'text-danger' : ''
-        }">${(forecast.main.temp_max - 273.15).toFixed(2)} &#8451;</td>
-        <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/50d@2x.png">${
-          forecast.wind.speed
-        } m/s</td>
+          kelvinToCelsius(forecast.main.temp_max) > tempThreshold
+            ? 'text-danger'
+            : ''
+        }">${kelvinToCelsius(forecast.main.temp_max).toFixed(2)} &#8451;</td>
+        <td class="align-middle"><img class="weather-icon" src="http://openweathermap.org/img/wn/50d@2x.png">${(
+          forecast.wind.speed * 3.6
+        ).toFixed(2)} Km/h</td>
     `;
-    forecastBody.appendChild(forecastItem);
+    domElements.forecastBody.appendChild(forecastItem);
   }
-  removeClassFromElement(document.querySelector('thead'), 'd-none');
-  removeClassFromElement(document.querySelector('tbody'), 'd-none');
+
+  removeClassFromElement(domElements.tableHead, 'd-none');
+  removeClassFromElement(domElements.forecastBody, 'd-none');
+};
+
+const displayWeatherData = ({ currentWeatherData }) => {
+  // Display weather icon
+  domElements.currentWeatherIcon.setAttribute(
+    'src',
+    `http://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}@2x.png`
+  );
+  removeClassFromElement(domElements.currentWeatherIcon, 'd-none');
+
+  // Display current temperature
+  domElements.currentTemp.innerHTML = Math.round(
+    kelvinToCelsius(currentWeatherData.main.temp)
+  );
+
+  // Display current location
+  domElements.currentLocation.innerHTML = currentWeatherData.name;
+
+  // Display current "feels like" temperature
+  domElements.currentFeelsLike.innerHTML = Math.round(
+    kelvinToCelsius(currentWeatherData.main.feels_like)
+  );
+
+  // Display sunset time
+  const currentSunsetDate = unixDateToTime(currentWeatherData.sys.sunset);
+  domElements.currentSunset.innerHTML = `${currentSunsetDate.getHours()}:${
+    currentSunsetDate.getMinutes().toString().length < 2
+      ? '0' + currentSunsetDate.getMinutes()
+      : currentSunsetDate.getMinutes()
+  }`;
+
+  // Display weather details
+  domElements.currentClouds.innerHTML = `${currentWeatherData.clouds.all} %`;
+  domElements.currentRain.innerHTML = `${
+    currentWeatherData.rain ? currentWeatherData.rain['3h'] : 0
+  } mm`;
+  domElements.currentHumidity.innerHTML = `${currentWeatherData.main.humidity} %`;
+  domElements.currentWind.innerHTML = `${Math.round(
+    metricToImperialSpeed(currentWeatherData.wind.speed)
+  )} Km/h`;
 };
 
 /**
@@ -83,14 +169,14 @@ google.maps.event.addListener(autoComplete, 'place_changed', () => {
   const suggestion = autoComplete.getPlace();
   const url = `http://localhost:3000/weather?address=${suggestion.name}`;
 
-  removeChildrenElements(forecastBody);
-  removeClassFromElement(tablePlaceholder, 'd-none');
-  addClassToElement(document.querySelector('thead'), 'd-none');
-  addClassToElement(document.querySelector('tbody'), 'd-none');
+  removeChildrenElements(domElements.forecastBody);
+  removeClassFromElement(domElements.tablePlaceholder, 'd-none');
+  addClassToElement(domElements.tableHead, 'd-none');
+  addClassToElement(domElements.forecastBody, 'd-none');
 
   // Create a loader inside the table
-  removeChildrenElements(tablePlaceholder);
-  tablePlaceholder.innerHTML = `
+  removeChildrenElements(domElements.tablePlaceholder);
+  domElements.tablePlaceholder.innerHTML = `
     <div class='spinner-border text-warning mx-auto' role='status'>
       <span class='sr-only'>Loading...</span>
     </div>
@@ -99,10 +185,10 @@ google.maps.event.addListener(autoComplete, 'place_changed', () => {
   fetch(url).then((response) => {
     response.json().then((data) => {
       const { error, location, forecast } = data;
-      console.log(data);
       if (error) {
       } else {
         displayForecastData(data);
+        displayWeatherData(data);
       }
     });
   });

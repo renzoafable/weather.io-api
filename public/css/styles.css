@@ -2,8 +2,8 @@
 
 :root {
   --main-light-color: #f2fbff;
-  --main-dark-color: #100e3b;
-  --secondary-dark-color: #484580;
+  --main-dark-color: #0c2461;
+  --secondary-dark-color: #224399;
 }
 
 * {
@@ -79,17 +79,23 @@ button {
 
 /* FORECAST TABLE */
 .weather-icon {
-  width: 50px;
   height: 50px;
   vertical-align: middle;
+  width: 50px;
+  z-index: 999;
 }
 
-.big-temp {
+.current-weather-icon {
+  width: 75px;
+  height: 75px;
+}
+
+.current-temp {
   font-family: 'Josefin Sans', sans-serif;
   font-size: 8rem;
 }
 
-.big-temp span {
+.celsius {
   color: var(--main-light-color);
   font-size: 2.5rem;
   vertical-align: top;

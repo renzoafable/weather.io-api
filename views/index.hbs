@@ -31,7 +31,7 @@
             type="text"
           >
         </div>
-        <div class="row shadow rounded bg-main-light">
+        <div class="row shadow-lg rounded bg-main-light">
           <div class="col-12 col-md-8 rounded-left p-4">
             <p class="h2 font-weight-bolder my-4 secondary-text text-center">Weather Forecast <small class="text-muted">(next 5 days)</small></p>
             <div class="table-responsive text-center">
@@ -59,20 +59,37 @@
             </div>
           </div>
           <div class="col-12 col-md-4 rounded-right bg-main-dark p-4">
-            <div class="d-flex flex-column align-items-center justify-content-center mt-5">
-              <div class="d-flex flex-row">
-                <img class="weather-icon" src="http://openweathermap.org/img/wn/09d@2x.png" style="width: 75px; height: 75px">
+            <div class="mt-5">
+              <div class="d-flex flex-row justify-content-center">
+                <img class="weather-icon current-weather-icon d-none" src="http://openweathermap.org/img/wn/09d@2x.png">
                 <div class="d-flex flex-column align-items-center justify-content-center">
                   <p class="h3 text-light m-0">Today</p>
-                  <p class="text-muted">Sat, 3 Aug</p>
+                  <p class="current-date text-light m-0"></p>
                 </div>
               </div>
-              <p class="text-white big-temp m-0">28<span>&#8451;</span></p>
-              <p class="text-muted mb-2">Berlin, Germany</p>
-              <div class="d-flex flex-row text-muted">
-                <span>Feels like 32</span>
-                <span class="mx-2">|</span>
-                <span>Sunset 20:15</span>
+              <div class="d-flex flex-column align-items-center justify-content-center mb-4">
+                <p class="text-white m-0"><span class="current-temp">0</span><span class="celsius">&#8451;</span></span>
+                <p class="current-location text-light mb-2">Select a location...</p>
+                <div class="d-flex flex-row text-light">
+                  <span>Feels like <span class="current-feels-like">0</span></span>
+                  <span class="mx-2">|</span>
+                  <span>Sunset <span class="current-sunset">00:00</span></span>
+                </div>
+              </div>
+              <div class="text-white mx-2">
+                <p class="font-weight-bold mb-1">Weather Details</p>
+                <div class="d-flex justify-content-between m-3">
+                  <span>Cloudy</span><span class="current-clouds font-weight-bold">0 %</span>
+                </div>
+                <div class="d-flex justify-content-between m-3">
+                  <span>Rain</span><span class="current-rain font-weight-bold">0 mm</span>
+                </div>
+                <div class="d-flex justify-content-between m-3">
+                  <span>Humidity</span><span class="current-humidity font-weight-bold">0 %</span>
+                </div>
+                <div class="d-flex justify-content-between m-3">
+                  <span>Wind</span><span class="current-wind font-weight-bold">0 Km/h</span>
+                </div>
               </div>
             </div>
           </div>
