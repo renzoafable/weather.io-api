@@ -39,12 +39,6 @@ const MONTHS = [
   'Dec',
 ];
 
-// Load date
-const currentDate = new Date();
-domElements.currentDate.innerHTML = `${
-  DAYS[currentDate.getDay()]
-}, ${currentDate.getDate()} ${MONTHS[currentDate.getMonth()]}`;
-
 const locationInput = document.getElementById('locationInput');
 const autoComplete = new google.maps.places.Autocomplete(locationInput, {
   types: ['(regions)'],
@@ -80,12 +74,14 @@ const metricToImperialSpeed = (speed) => {
 };
 
 const displayForecastData = ({ forecastData }) => {
-  removeChildrenElements(domElements.tablePlaceholder);
-  addClassToElement(domElements.tablePlaceholder, 'd-none');
   const { cod, message, cnt, list, city } = forecastData;
   const step = Math.floor(cnt / 5);
   const tempThreshold = 27;
 
+  removeChildrenElements(domElements.tablePlaceholder);
+  addClassToElement(domElements.tablePlaceholder, 'd-none');
+
+  // Build forecast table
   for (let i = step - 1; i < cnt; i += step) {
     const forecast = { ...list[i] };
     forecast['date'] = new Date(forecast.dt * 1000);
@@ -156,6 +152,12 @@ const displayWeatherData = ({ currentWeatherData }) => {
     metricToImperialSpeed(currentWeatherData.wind.speed)
   )} Km/h`;
 };
+
+// Load date
+const currentDate = new Date();
+domElements.currentDate.innerHTML = `${
+  DAYS[currentDate.getDay()]
+}, ${currentDate.getDate()} ${MONTHS[currentDate.getMonth()]}`;
 
 /**
  * This event is fired when a PlaceResult is made available for a Place the user has selected.
