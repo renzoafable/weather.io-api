@@ -4,7 +4,7 @@ const config = require('../config');
 const geocode = (address, callback) => {
   const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
     address
-  )}.json?access_token=${config.mapboxToken}&limit=1`;
+  )}.json?access_token=pk.eyJ1IjoicmVuem9hZmFibGUiLCJhIjoiY2s4bG5xaHVvMGFodjNtbWlkcnZ1ZWEydiJ9.cNdAzWA63lVGxhUitWpH0g&limit=1`;
 
   request({ url, json: true }, (error, { body }) => {
     const { features } = body;
