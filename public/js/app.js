@@ -169,7 +169,7 @@ domElements.currentDate.innerHTML = `${
  */
 google.maps.event.addListener(autoComplete, 'place_changed', () => {
   const suggestion = autoComplete.getPlace();
-  const url = `http://localhost:3000/weather?address=${suggestion.name}`;
+  const url = `/weather?address=${suggestion.name}`;
 
   removeChildrenElements(domElements.forecastBody);
   removeClassFromElement(domElements.tablePlaceholder, 'd-none');
