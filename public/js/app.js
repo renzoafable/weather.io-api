@@ -178,7 +178,7 @@ domElements.currentDate.innerHTML = `${
  */
 google.maps.event.addListener(autoComplete, 'place_changed', () => {
   const suggestion = autoComplete.getPlace();
-  const url = `/weather?address=${suggestion.name}`;
+  const url = `/weather?address=${suggestion.formatted_address}`;
 
   removeChildrenElements(domElements.forecastBody);
   removeClassFromElement(domElements.tablePlaceholder, 'd-none');
