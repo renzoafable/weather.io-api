@@ -3,7 +3,7 @@ const forecast = require('../utils/forecast');
 const currentWeather = require('../utils/currentWeather');
 
 module.exports = {
-  getWeatherData(req, res) {
+  async getWeatherData(req, res) {
     const { address } = req.query;
 
     if (!address) {
@@ -12,35 +12,25 @@ module.exports = {
       });
     }
 
-    geocode(
-      address,
-      (error, { longitude, latitude, location: geoLocation } = {}) => {
-        if (error) {
-          return res.send({ error });
-        }
+    try {
+      const { longitude, latitude, location: geoLocation } = await geocode(
+        address
+      );
+      const currentWeatherData = await currentWeather(longitude, latitude);
+      const { data: weatherData } = currentWeatherData;
+      const { coord } = weatherData;
+      const forecastData = await forecast(coord.lon, coord.lat);
 
-        currentWeather(longitude, latitude, (error, currentWeatherData) => {
-          if (error) {
-            return res.send({ error });
-          }
+      debugger;
 
-          const { data: weatherData } = currentWeatherData;
-          const { coord } = weatherData;
-
-          forecast(coord.lon, coord.lat, (error, forecastData) => {
-            if (error) {
-              return res.send({ error });
-            }
-
-            res.send({
-              forecast: forecastData.message,
-              location: geoLocation,
-              forecastData: forecastData.data,
-              currentWeatherData: weatherData,
-            });
-          });
-        });
-      }
-    );
+      res.send({
+        forecast: forecastData.message,
+        location: geoLocation,
+        forecastData: forecastData.data,
+        currentWeatherData: weatherData,
+      });
+    } catch (error) {
+      res.send({ error });
+    }
   },
 };

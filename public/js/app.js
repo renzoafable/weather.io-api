@@ -41,7 +41,7 @@ const MONTHS = [
 
 const locationInput = document.getElementById('locationInput');
 const autoComplete = new google.maps.places.Autocomplete(locationInput, {
-  types: ['(regions)'],
+  types: ['(cities)'],
 });
 
 const removeChildrenElements = (domElement) => {
@@ -73,7 +73,7 @@ const metricToImperialSpeed = (speed) => {
   return speed * 3.6;
 };
 
-const displayForecastData = ({ forecastData }) => {
+const displayForecastData = (forecastData) => {
   const { cod, message, cnt, list, city } = forecastData;
   const step = Math.floor(cnt / 5);
   const tempThreshold = 27;
@@ -113,7 +113,7 @@ const displayForecastData = ({ forecastData }) => {
   removeClassFromElement(domElements.forecastBody, 'd-none');
 };
 
-const displayWeatherData = ({ currentWeatherData }) => {
+const displayWeatherData = (currentWeatherData) => {
   // Display weather icon
   domElements.currentWeatherIcon.setAttribute(
     'src',
@@ -145,12 +145,21 @@ const displayWeatherData = ({ currentWeatherData }) => {
   // Display weather details
   domElements.currentClouds.innerHTML = `${currentWeatherData.clouds.all} %`;
   domElements.currentRain.innerHTML = `${
-    currentWeatherData.rain ? currentWeatherData.rain['3h'] : 0
+    currentWeatherData.rain
+      ? currentWeatherData.rain['3h']
+        ? currentWeatherData.rain['3h']
+        : 0
+      : 0
   } mm`;
   domElements.currentHumidity.innerHTML = `${currentWeatherData.main.humidity} %`;
   domElements.currentWind.innerHTML = `${Math.round(
     metricToImperialSpeed(currentWeatherData.wind.speed)
   )} Km/h`;
+};
+
+const displayError = (errorMessage) => {
+  removeChildrenElements(domElements.tablePlaceholder);
+  domElements.tablePlaceholder.innerHTML = errorMessage;
 };
 
 // Load date
@@ -185,13 +194,18 @@ google.maps.event.addListener(autoComplete, 'place_changed', () => {
   `;
 
   fetch(url).then((response) => {
-    response.json().then((data) => {
-      const { error, location, forecast } = data;
-      if (error) {
-      } else {
-        displayForecastData(data);
-        displayWeatherData(data);
-      }
-    });
+    response
+      .json()
+      .then((data) => {
+        const { error, currentWeatherData, forecastData, location } = data;
+        if (error) {
+          console.log(error);
+          displayError(error);
+        } else {
+          displayForecastData(forecastData);
+          displayWeatherData(currentWeatherData);
+        }
+      })
+      .catch((error) => console.log(error));
   });
 });
