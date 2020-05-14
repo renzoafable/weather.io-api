@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const hbs = require('hbs');
+const cors = require('cors');
 
 const routes = require('./routes');
 
@@ -14,6 +15,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 hbs.registerPartials(path.join(__dirname, 'views/partials'));
 
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
