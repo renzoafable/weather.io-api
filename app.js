@@ -10,10 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: [
-      'https://renzoafable.github.io/weather.io-client/',
-      'http://localhost:3000',
-    ],
+    origin: ['https://renzoafable.github.io', 'http://localhost:3000'],
   })
 );
 app.use(logger('dev'));
