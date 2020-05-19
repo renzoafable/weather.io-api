@@ -26,11 +26,9 @@ router.get('/weather', async (req, res) => {
     );
     const currentWeatherData = await currentWeather(longitude, latitude);
     const { data: weatherData } = currentWeatherData;
-    const { coord } = weatherData;
-    const forecastData = await forecast(coord.lon, coord.lat);
+    const forecastData = await forecast(longitude, latitude);
 
     res.send({
-      forecast: forecastData.message,
       location: geoLocation,
       forecastData: forecastData.data,
       currentWeatherData: weatherData,

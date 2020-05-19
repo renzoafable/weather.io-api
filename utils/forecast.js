@@ -1,25 +1,24 @@
 const rp = require('request-promise');
 const config = require('../config');
 
+const extractForecastData = ({ list }) => {
+  return list.filter((item, index) => index % 8 === 0);
+};
+
 const forecast = (lon, lat) => {
   return new Promise((resolve, reject) => {
-    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${config.openWeatherMapKey}`;
+    const url = `http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=metric&APPID=${config.openWeatherMapKey}`;
     rp({ url, json: true })
       .then((response) => {
-        if (response.message) reject('Unable to find location!');
+        if (response.message) reject({ error: 'Unable to find location!' });
         else {
           resolve({
-            message: `The weather for today is ${
-              response.list[0].weather[0].description
-            }. It is currently ${(response.list[0].main.temp - 273.15).toFixed(
-              2
-            )} degrees out.`,
-            data: response,
+            data: extractForecastData(response),
           });
         }
       })
       .catch(() => {
-        reject('Unable to connect to openweathermap!');
+        reject({ error: 'Unable to connect to openweathermap!' });
       });
   });
 };

@@ -122,16 +122,14 @@ const displayWeatherData = (currentWeatherData) => {
   removeClassFromElement(domElements.currentWeatherIcon, 'd-none');
 
   // Display current temperature
-  domElements.currentTemp.innerHTML = Math.round(
-    kelvinToCelsius(currentWeatherData.main.temp)
-  );
+  domElements.currentTemp.innerHTML = Math.round(currentWeatherData.main.temp);
 
   // Display current location
   domElements.currentLocation.innerHTML = currentWeatherData.name;
 
   // Display current "feels like" temperature
   domElements.currentFeelsLike.innerHTML = Math.round(
-    kelvinToCelsius(currentWeatherData.main.feels_like)
+    currentWeatherData.main.feels_like
   );
 
   // Display sunset time
