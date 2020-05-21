@@ -38,3 +38,6 @@ yarn dev
 - [Yarn](https://classic.yarnpkg.com/en/docs/install/) - Dependency Management
 - [OpenWeatherMap](https://openweathermap.org/api) - Forecast API
 - [Mapbox](https://docs.mapbox.com/api/search/) - Geocoding API
+
+## Client
+The source code for the client can be found [here](https://github.com/renzoafable/weather.io-client).
