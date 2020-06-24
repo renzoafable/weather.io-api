@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1592992824892" clover="3.2.0">
+  <project timestamp="1592992824892" name="All files">
+    <metrics statements="84" coveredstatements="84" conditionals="16" coveredconditionals="14" methods="14" coveredmethods="14" elements="114" coveredelements="112" complexity="0" loc="84" ncloc="84" packages="6" files="9" classes="9"/>
+    <package name="express-web-server">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="config.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\config.js">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="express-web-server.src">
+      <metrics statements="21" coveredstatements="21" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="app.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\app.js">
+        <metrics statements="21" coveredstatements="21" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="19" count="1" type="stmt"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="24" count="1" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="31" count="3" type="stmt"/>
+        <line num="32" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="35" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="36" count="3" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="express-web-server.src.controllers">
+      <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="weatherController.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\controllers\weatherController.js">
+        <metrics statements="13" coveredstatements="13" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="6" count="9" type="stmt"/>
+        <line num="8" count="9" type="cond" truecount="2" falsecount="0"/>
+        <line num="9" count="2" type="stmt"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="14" count="7" type="stmt"/>
+        <line num="15" count="7" type="stmt"/>
+        <line num="16" count="5" type="stmt"/>
+        <line num="17" count="4" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="25" count="4" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="express-web-server.src.libs">
+      <metrics statements="28" coveredstatements="28" conditionals="6" coveredconditionals="6" methods="6" coveredmethods="6"/>
+      <file name="currentWeather.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\libs\currentWeather.js">
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+      </file>
+      <file name="forecast.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\libs\forecast.js">
+        <metrics statements="8" coveredstatements="8" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="4" type="stmt"/>
+        <line num="6" count="4" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="9" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="17" count="2" type="stmt"/>
+      </file>
+      <file name="geocode.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\libs\geocode.js">
+        <metrics statements="12" coveredstatements="12" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="9" count="6" type="cond" truecount="2" falsecount="0"/>
+        <line num="10" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="15" count="4" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="express-web-server.src.routes">
+      <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="weather.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\routes\weather.js">
+        <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="express-web-server.src.utils">
+      <metrics statements="9" coveredstatements="9" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
+      <file name="conversion.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\utils\conversion.js">
+        <metrics statements="3" coveredstatements="3" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="11" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="4" type="stmt"/>
+      </file>
+      <file name="helper.js" path="C:\Users\loren\Desktop\Software Engineering\NodeJS\node-course\express-web-server\src\utils\helper.js">
+        <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="120" type="stmt"/>
+        <line num="7" count="2" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
